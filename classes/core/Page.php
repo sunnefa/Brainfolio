@@ -111,7 +111,7 @@ class Page {
      * @param int $limit - if limit is 0 all pages will be loaded
      * @param int $start - offset to start from
      * @return array
-     * @throws ArtNoRecordsFoundException
+     * @throws Exception
      */
     public function select_multiple_pages($limit = 0, $start = 0) {
         
@@ -120,12 +120,12 @@ class Page {
         //apparently, this is the official approach when needing offset/start but still unlimited records
         $limit_string .= ($limit == 0) ? '18446744073709551615' : $limit;
         
-        $pages = $this->db_wrapper->select($this->table_name, '*', NULL, $limit_string);
+        $results = $this->db_wrapper->select($this->table_name, '*', NULL, $limit_string);
         
-        if($pages) {
-            return $pages;
+        if($results === false) {
+            throw new Exception('No pages were found');
         } else {
-            throw new ArtNoRecordsFoundException('No records were found in the ' . $this->table_name . ' table.', ArtException::NO_RECORDS_FOUND);
+            return $results;
         }
     }
     
