@@ -17,7 +17,7 @@ $page_slug = $_GET['page'];
 try {
     $page = new Page($sql, $page_slug);
     
-    foreach($page->page_modules as $dislay_order => $module) {
+    foreach($page->page_modules as $display_order => $module) {
         if($module->module_is_active == 1) {
             include MODULES . $module->module_path;
         }
