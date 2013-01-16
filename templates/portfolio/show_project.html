@@ -1,0 +1,21 @@
+<!--templates/portfolio/show_project.html-->
+<div class="section-container" id="slide-{PROJECT_TITLE}">
+    <section class="left info">
+        <h2>{PROJECT_TITLE}</h2>
+        <div class="screenshot-container"><img src="{PROJECT_THUMBNAIL}" class="screenshot-small" alt="{PROJECT_TITLE} - {PROJECT_TAGLINE}" /></div>
+        <div class="shadow-medium"></div>
+        <p>{PROJECT_TITLE} - {PROJECT_TAGLINE}</p>
+        <p>Year: <b>{PROJECT_YEAR}</b></p>
+        <p>Development time: <b>{PROJECT_DEV_TIME}</b></p>
+        <p>Language(s): {PROJECT_LANGUAGES}</p>
+        <p>Tools: {PROJECT_TOOLS}</p>
+    </section>
+
+    <section class="right info">
+        {PROJECT_DESCRIPTION}
+
+        <p><a href="{PROJECT_DEMO_URL}" class="more" target="_blank">{PROJECT_DEMO_LINK}</a></p>
+        <p><a href="{PROJECT_GITHUB_URL}" class="more" target="_blank">Github repository</a></p>
+
+    </section>
+</div>
