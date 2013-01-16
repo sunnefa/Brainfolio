@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteBase /WebFolio/public_html/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !([a-z0-9A-Z]+)/$
+RewriteRule ^([a-z0-9A-Z]+)$ $1/ [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^([a-z0-9A-Z]+)/$ index.php?page=$1
+RewriteRule ^$ index.php?page=home [L]
