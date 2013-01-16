@@ -43,7 +43,7 @@ h2 {
 
 h2:after {
 	content:" ";
-	background: url(sprites.png) no-repeat;
+	background: url(../images/sprites.png) no-repeat;
 	background-position: -456px -44px ;
 	width: 20px;
 	height: 20px;
