@@ -130,6 +130,14 @@ class Functions {
 
         return $text;
     }
+    
+    /**
+     * Returns the base url the application resides in, that is from the browsers point of view
+     * @return string
+     */
+    static function get_base_url() {
+        return "http://" . $_SERVER['HTTP_HOST'] . preg_replace("#/[^/]*\.php$#simU", "/", $_SERVER["PHP_SELF"]);
+    }
 }
 
 ?>
