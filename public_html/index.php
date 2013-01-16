@@ -22,6 +22,8 @@ if(!require_once('../config/init.php')) {
 
 $sql = MySQLWrapper::get_instance();
 
+$settings = new Settings($sql);
+
 require_once CONTROLLERS . 'main.php';
 
 ob_end_flush();
