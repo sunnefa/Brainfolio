@@ -27,8 +27,8 @@ try {
         'PROJECT_DEMO_URL' => $project->project_demo_url,
         'PROJECT_DEMO_LINK' => str_replace('/', '', str_replace('http://', '', $project->project_demo_url)),
         'PROJECT_GITHUB_URL' => $project->project_github_url,
-        'PROJECT_LANGUAGES' => implode(', ', $project->project_languages),
-        'PROJECT_TOOLS' => implode(', ', $project->project_tools)
+        'PROJECT_LANGUAGES' => Functions::implode_with_tag($project->project_languages, '<b>', true),
+        'PROJECT_TOOLS' => Functions::implode_with_tag($project->project_languages, '<b>', true)
     );
     
     $project_template = new Template(TEMPLATES . 'portfolio/single_project.html', $tokens);
