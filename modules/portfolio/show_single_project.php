@@ -14,10 +14,11 @@
  */
 
 try {
-    $project = new Project($sql, 1);
+    $project = new Project($sql, $project_id);
     
     $tokens = array(
         'PROJECT_TITLE' => $project->project_title,
+        'PROJECT_SLUG' => strtolower($project->project_title),
         'PROJECT_TAGLINE' => $project->project_tagline,
         'PROJECT_YEAR' => $project->project_year,
         'PROJECT_DEV_TIME' => $project->project_dev_time,
@@ -30,7 +31,7 @@ try {
         'PROJECT_TOOLS' => implode(', ', $project->project_tools)
     );
     
-    $project_template = new Template(TEMPLATES . 'portfolio/show_project.html', $tokens);
+    $project_template = new Template(TEMPLATES . 'portfolio/single_project.html', $tokens);
     
     echo $project_template->return_parsed_template();
     
