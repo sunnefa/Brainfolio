@@ -1,0 +1,16 @@
+<!--templates/portfolio/all_projects-->
+<script src="js/folioSlider.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$(this).folioSlider('.slide', '.arrows', '#slides-holder');
+});
+
+</script>
+<div class="slides-container">
+    <div id="slides-holder">
+        {ALL_PROJECTS}
+    </div>
+</div>
+    <div class="arrows"></div>
