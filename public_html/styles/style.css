@@ -152,6 +152,20 @@ nav ul li.last a:after {
 	margin-top:-1.071em;
 }
 
+.slide {
+    width:910px;
+    margin:0 auto;
+    margin-top:-1.071em;
+    margin-bottom:30px;
+}
+
+.slides-container {
+    width:910px;
+    margin:0 auto; 
+    padding-top:15px; 
+    overflow:hidden;
+}
+
 section.left, section.right {
 	width:400px; /* 400px / 910px */
 	float:left;
