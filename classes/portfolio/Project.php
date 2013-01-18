@@ -145,6 +145,12 @@ class Project {
         }
     }
     
+    /**
+     * Gets the projects tools from the database
+     * @param int $project_id
+     * @return array
+     * @throws InvalidArgumentException 
+     */
     private function get_project_tools($project_id) {
         if(!is_numeric($project_id)) {
             throw new InvalidArgumentException('Project id should be numeric');
@@ -153,7 +159,7 @@ class Project {
             $results = $this->db_wrapper->select(
                     'portfolio__tools AS t',
                     'tool_name',
-                    'pt.project_id = ' . $project_id, null, null, null, $joins
+                    'pt.project_id = ' . $project_id, null, 'tool_name', null, $joins
             );
             if($results === false) {
                 return array();
@@ -167,6 +173,12 @@ class Project {
         }
     }
     
+    /**
+     * Gets the project languages from the database
+     * @param int $project_id
+     * @return array
+     * @throws InvalidArgumentException 
+     */
     private function get_project_languages($project_id) {
         if(!is_numeric($project_id)) {
             throw new InvalidArgumentException('Project id should be numeric');
@@ -175,7 +187,7 @@ class Project {
             $results = $this->db_wrapper->select('portfolio__languages AS l', 
                     'language_name', 
                     'pl.project_id = ' . $project_id, 
-                    null, null, null, $joins
+                    null, 'l.language_name', null, $joins
             );
             if($results === false) {
                 return array();
@@ -187,6 +199,27 @@ class Project {
                 return $langs;
             }
         }
+    }
+    
+    /**
+     * Selects only project id's from the database which can then be used to create 
+     * separate Project objects for each project
+     * @return array
+     * @throws Exception 
+     */
+    public function return_all_project_ids() {
+        $results = $this->db_wrapper->select($this->table_name, 'project_id');
+        
+        if($results === false) {
+            throw new Exception('No project ids were found');
+        } else {
+            $ids = array();
+            foreach($results as $project) {
+                $ids[] = $project['project_id'];
+            }
+            return $ids;
+        }
+        
     }
 
 }
