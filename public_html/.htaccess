@@ -10,3 +10,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^([a-z0-9A-Z]+)/$ index.php?page=$1
 RewriteRule ^$ index.php?page=home [L]
+RewriteRule ^blog/([a-z0-9A-Z\-/_&\+]+)$ index.php?page=blog&parts=$1
