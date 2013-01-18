@@ -1,9 +1,9 @@
 <?php
 /**
  *  Constants for the database
- * 
+ *
  *  This file defines constants for the database connection
- * 
+ *
  * @filename config/db.php
  * @package Configuration
  * @version 0.1
@@ -13,22 +13,22 @@
  */
 
 /**
- * The database username 
+ * The database username
  */
 define('DBUSER', '*');
 
 /**
- * The database hostname 
+ * The database hostname
  */
 define('DBHOST', 'localhost');
 
 /**
- * The database password 
+ * The database password
  */
 define('DBPASS', '*');
 
 /**
- * The database name 
+ * The database name
  */
 define('DBNAME', '*');
 ?>
