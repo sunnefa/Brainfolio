@@ -138,6 +138,24 @@ class Functions {
     static function get_base_url() {
         return "http://" . $_SERVER['HTTP_HOST'] . preg_replace("#/[^/]*\.php$#simU", "/", $_SERVER["PHP_SELF"]);
     }
+    
+    /**
+     * Implodes an array and surrounds each element with the selected html tag
+     * @param array $array
+     * @param string $tag
+     * @param boolean $use_comma
+     * @return string 
+     */
+    static function implode_with_tag($array, $tag = '<span>', $use_comma = false) {
+        $closing_tag = str_replace('<', '</', $tag);
+        
+        $comma = (!$use_comma) ? '' : ', ';
+        
+        $glue = $closing_tag . $comma . $tag;
+        
+        return $tag . implode($glue, $array) . $closing_tag;
+        
+    }
 }
 
 ?>
