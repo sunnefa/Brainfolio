@@ -1,12 +1,11 @@
 <?php
-
 /**
- *  A short description of this file
+ *  Controller for showing all projects
  * 
- *  A longer description of this file
+ *  Shows all projects in the portfolio
  * 
- * @filename projects.php
- * @package 
+ * @filename modules/portfolio/projects.php
+ * @package Portfolio modules
  * @version 0.1
  * @author Sunnefa Lind <sunnefa_lind@hotmail.com>
  * @copyright Sunnefa Lind 2013
