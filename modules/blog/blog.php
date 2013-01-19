@@ -35,7 +35,7 @@ switch($showing) {
             echo 'Showing the ' . $blog_slug . ' tag';
         } else {
             //include show_all_tags.php
-            echo 'Showing tag cloud';
+            include 'show_all_tags.php';
         }
         break;
         
