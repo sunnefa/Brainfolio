@@ -61,6 +61,12 @@ class Post {
     public $post_tags;
     
     /**
+     * The total number of posts
+     * @var int
+     */
+    public $total_posts;
+    
+    /**
      * The posts table
      * @var string
      */
@@ -74,6 +80,8 @@ class Post {
 
     public function __construct(DBWrapper $sql, $post = null){
         $this->db_wrapper = $sql;
+        
+        $this->total_posts = $this->get_post_count();
         
         if($post) {
             if(is_numeric($post)) {
@@ -145,8 +153,35 @@ class Post {
             $this->post_title = $post['post_title'];
             $this->post_content = html_entity_decode($post['post_content']);
             $this->post_date = $post['post_date'];
+            $this->post_slug = $post['post_slug'];
             $this->post_status = $post['post_status_name'];
             $this->post_tags = explode(',', $post['post_tags']);
+            
+        }
+    }
+    
+    private function get_post_count() {
+        $results = $this->db_wrapper->select($this->table_name, 'COUNT(post_id) AS num');
+        
+        if($results === false) {
+            return 0;
+        } else {
+            return $results[0]['num'];
+        }
+        
+    }
+    
+    public function get_all_post_ids($limit, $start) {
+        $results = $this->db_wrapper->select($this->table_name, 'post_id', NULL, $start . ', ' . $limit);
+        
+        if($results === false) {
+            return array();
+        } else {
+            $ids = array();
+            foreach($results as $post) {
+                $ids[] = $post['post_id'];
+            }
+            return $ids;
             
         }
     }
