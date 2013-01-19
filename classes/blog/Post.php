@@ -78,6 +78,11 @@ class Post {
      */
     private $db_wrapper;
 
+    /**
+     * Constructor
+     * @param DBWrapper $sql
+     * @param mixed $post
+     */
     public function __construct(DBWrapper $sql, $post = null){
         $this->db_wrapper = $sql;
         
@@ -92,6 +97,12 @@ class Post {
         }
     }
     
+    /**
+     * Selects a post by it's slug - this seems like a duplicate, how about making it the same function...?
+     * @param string $slug
+     * @throws InvalidArgumentException
+     * @throws Exception
+     */
     private function select_post_by_slug($slug) {
         if(!is_string($slug)) {
             throw new InvalidArgumentException('Post slug must a string');
@@ -119,6 +130,12 @@ class Post {
         }
     }
     
+    /**
+     * Selects a post by it's id
+     * @param int $id
+     * @throws InvalidArgumentException
+     * @throws Exception
+     */
     private function select_post_by_id($id) {
         if(!is_numeric($id)) {
             throw new InvalidArgumentException('Post id must be a number');
@@ -145,6 +162,11 @@ class Post {
         }
     }
     
+    /**
+     * Assigns elements of post array to the object variables
+     * @param array $post
+     * @throws InvalidArgumentException
+     */
     private function set_post_variables($post) {
         if(!is_array($post)) {
             throw new InvalidArgumentException('Post must be an array');
@@ -160,6 +182,10 @@ class Post {
         }
     }
     
+    /**
+     * Returns the total number of posts
+     * @return int
+     */
     private function get_post_count() {
         $results = $this->db_wrapper->select($this->table_name, 'COUNT(post_id) AS num');
         
@@ -171,6 +197,12 @@ class Post {
         
     }
     
+    /**
+     * Returns all post ids
+     * @param int $limit
+     * @param int $start
+     * @return array
+     */
     public function get_all_post_ids($limit, $start) {
         $results = $this->db_wrapper->select($this->table_name, 'post_id', NULL, $start . ', ' . $limit);
         
