@@ -89,77 +89,46 @@ class Post {
         $this->total_posts = $this->get_post_count();
         
         if($post) {
-            if(is_numeric($post)) {
-                $this->select_post_by_id($post);
-            } elseif(is_string($post)) {
-                $this->select_post_by_slug($post);
-            }
+            $this->select_post($post);
         }
     }
     
     /**
-     * Selects a post by it's slug - this seems like a duplicate, how about making it the same function...?
-     * @param string $slug
+     * Selects a post based on the identifier which can be either an id or a string
+     * @param mixed $post_identifier
      * @throws InvalidArgumentException
      * @throws Exception
      */
-    private function select_post_by_slug($slug) {
-        if(!is_string($slug)) {
-            throw new InvalidArgumentException('Post slug must a string');
+    private function select_post($post_identifier) {
+        if(is_numeric($post_identifier)) {
+            $where = 'post_id = ' . $post_identifier;
+        } elseif(is_string($post_identifier)) {
+            $where = "post_slug = '$post_identifier'";
         } else {
-            $fields = array(
+            throw new InvalidArgumentException('Post must be identified by a numer (id) or a string (slug)');
+        }
+        
+        $fields = array(
                 'p.post_id',
                 'p.post_title',
                 'p.post_content',
                 'p.post_date',
                 'p.post_slug',
                 '(SELECT status_name FROM blog__post_statuses WHERE status_id = p.post_status) AS post_status_name',
-                '(SELECT GROUP_CONCAT(t.tag_name) FROM blog__tags AS t LEFT JOIN blog__posts_tags AS pt ON pt.post_id = post_id) AS post_tags'
             );
-            
-            $results = $this->db_wrapper->select($this->table_name . ' AS p', $fields, "post_slug = '$slug'");
-            
-            if($results === false) {
-                throw new Exception('No post with slug ' . $slug . ' was found');
-            } else {
-                $results = Functions::array_flat($results);
-                
-                $this->set_post_variables($results);
-            }
-            
-        }
-    }
-    
-    /**
-     * Selects a post by it's id
-     * @param int $id
-     * @throws InvalidArgumentException
-     * @throws Exception
-     */
-    private function select_post_by_id($id) {
-        if(!is_numeric($id)) {
-            throw new InvalidArgumentException('Post id must be a number');
+        
+        $results = $this->db_wrapper->select($this->table_name . ' AS p', $fields, $where);
+        
+        if($results === false) {
+            throw new Exception('No post with identifier (id or slug) ' . $post_identifier . ' was found');
         } else {
-            $fields = array(
-                'p.post_id',
-                'p.post_title',
-                'p.post_content',
-                'p.post_date',
-                'p.post_slug',
-                '(SELECT status_name FROM blog__post_statuses WHERE status_id = p.post_status) AS post_status_name',
-                '(SELECT GROUP_CONCAT(t.tag_name) FROM blog__tags AS t LEFT JOIN blog__posts_tags AS pt ON pt.post_id = post_id) AS post_tags'
-            );
+            $results = Functions::array_flat($results);
             
-            $results = $this->db_wrapper->select($this->table_name . ' AS p', $fields, 'post_id = ' . $id);
+            $results['post_tags'] = $this->get_post_tags($results['post_id']);
             
-            if($results === false) {
-                throw new Exception('No post with id ' . $id . ' was found');
-            } else {
-                $results = Functions::array_flat($results);
-                
-                $this->set_post_variables($results);
-            }
+            $this->set_post_variables($results);
         }
+        
     }
     
     /**
@@ -177,8 +146,34 @@ class Post {
             $this->post_date = $post['post_date'];
             $this->post_slug = $post['post_slug'];
             $this->post_status = $post['post_status_name'];
-            $this->post_tags = explode(',', $post['post_tags']);
+            $this->post_tags = $post['post_tags'];
             
+        }
+    }
+    
+    /**
+     * Returns an array of tags based on the post's id
+     * @param int $post_id
+     * @return array
+     * @throws InvalidArgumentException
+     */
+    private function get_post_tags($post_id) {
+        if(!is_numeric($post_id)) {
+            throw new InvalidArgumentException('Post id must be a number');
+        } else {
+            $joins = $this->db_wrapper->build_joins('blog__posts_tags AS pt', array('pt.tag_id', 't.tag_id'), 'left');
+            
+            $results = $this->db_wrapper->select('blog__tags AS t', 't.tag_name', 'pt.post_id = ' . $post_id, null, null, null, $joins);
+            
+            if($results === false) {
+                return array();
+            } else {
+                $tags = array();
+                foreach($results as $tag) {
+                    $tags[] = $tag['tag_name'];
+                }
+                return $tags;
+            }
         }
     }
     
@@ -216,6 +211,15 @@ class Post {
             return $ids;
             
         }
+    }
+    
+    public function get_all_tags() {
+        $joins = $this->db_wrapper->build_joins('blog__posts_tags AS pt', array('pt.tag_id', 't.tag_id'), 'left');
+        
+        $results = $this->db_wrapper->select('blog__tags AS t', array('t.tag_name', '(SELECT COUNT(post_id) FROM blog__posts_tags WHERE t.tag_id = tag_id) AS post_count'), null, null, null, 't.tag_id', $joins);
+        
+        return $results;
+        
     }
 
 }
