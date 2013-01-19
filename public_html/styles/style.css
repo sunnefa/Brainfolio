@@ -246,3 +246,14 @@ b {
 	font-weight:normal;
 	color:#724d4f;
 }
+
+.post-excerpt {
+    margin-bottom:20px;
+    padding-bottom:20px;
+    border-bottom: #B37579 1px dotted;
+}
+
+.pagination {
+    text-align: center;
+    margin:30px;
+}
