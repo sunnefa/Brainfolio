@@ -23,12 +23,24 @@ try {
         $template = 'show_single_post.html';
     }
     
+    $post_tags = '';
+    foreach($post->post_tags as $num => $tag) {
+        $tokens = array(
+            'TAG' => $tag,
+            'CLASS' => '',
+            'TAG_LINK' => ucwords($tag),
+            'SEPARATE' => (count($post->post_tags) - 1 == $num) ? '' : ', '
+        );
+        $tag_template = new Template(TEMPLATES . 'blog/tag_link.html', $tokens);
+        $post_tags .= $tag_template->return_parsed_template();
+    }
+    
     $tokens = array(
         'POST_TITLE' => $post->post_title,
         'POST_CONTENT' => $post_content,
         'POST_DATE' => date($settings->date_format, strtotime($post->post_date)),
         'POST_SLUG' => $post->post_slug,
-        'POST_TAGS' => implode(',', $post->post_tags)
+        'POST_TAGS' => $post_tags
     );
     
     $post_template = new Template(TEMPLATES . 'blog/' . $template, $tokens);
