@@ -15,13 +15,25 @@
 try {
     $post = new Post($sql, $blog_slug);
     
+    if(isset($show_excerpt)) {
+        $post_content = Functions::truncate($post->post_content, $settings->post_excerpt_length);
+        $template = 'show_excerpt.html';
+    } else {
+        $post_content = $post->post_content;
+        $template = 'show_single_post.html';
+    }
+    
     $tokens = array(
         'POST_TITLE' => $post->post_title,
-        'POST_CONTENT' => $post->post_content,
-        'POST_DATE' => $post->post_date,
+        'POST_CONTENT' => $post_content,
+        'POST_DATE' => date($settings->date_format, strtotime($post->post_date)),
+        'POST_SLUG' => $post->post_slug,
+        'POST_TAGS' => implode(',', $post->post_tags)
     );
     
-    $post_template = new Template(TEMPLATES . 'blog/show_single_post.html');
+    $post_template = new Template(TEMPLATES . 'blog/' . $template, $tokens);
+    
+    echo $post_template->return_parsed_template();
     
 } catch(Exception $e) {
     
