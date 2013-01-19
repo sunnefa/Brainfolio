@@ -19,14 +19,14 @@ if(isset($_GET['parts'])) {
     $blog_slug = (isset($parts[1])) ? $parts[1] : '';
 } else {
     $showing = 'all';
+    $blog_slug = '1';
 }
 
 switch($showing) {
     case 'all':
     case 'page':
         //include show_all_posts
-        echo 'Showing all posts';
-        if(!empty($blog_slug)) echo 'Showing page ' . $blog_slug; //pagination
+        include 'show_all_posts.php';
         break;
         
     case 'tags':
