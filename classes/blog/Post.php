@@ -213,6 +213,10 @@ class Post {
         }
     }
     
+    /**
+     * Returns all tags in the database, along with their post count
+     * @return array
+     */
     public function get_all_tags() {
         $joins = $this->db_wrapper->build_joins('blog__posts_tags AS pt', array('pt.tag_id', 't.tag_id'), 'left');
         
@@ -222,14 +226,26 @@ class Post {
         
     }
     
+    /**
+     * Removes a post from the database
+     * @return boolean
+     */
     private function remove_post() {
         
     }
     
+    /**
+     * Adds a post to the database
+     * @return boolean
+     */
     private function add_post() {
         
     }
     
+    /**
+     * Adds a tag to the database
+     * @return boolean
+     */
     private function add_tag() {
         
     }
