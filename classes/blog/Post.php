@@ -250,10 +250,18 @@ class Post {
         
     }
     
+    /**
+     * Updates a tag in the database
+     * @return boolean
+     */
     private function update_tag() {
         
     }
     
+    /**
+     * Removes a tag from the database
+     * @return boolean
+     */
     private function remove_tag() {
         
     }
