@@ -226,6 +226,10 @@ class Post {
         
     }
     
+    private function add_post() {
+        
+    }
+    
     private function add_tag() {
         
     }
