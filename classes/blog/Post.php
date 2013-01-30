@@ -282,6 +282,10 @@ class Post {
         
     }
     
+    /**
+     * Adds a relationship between posts and tags to the database
+     * @return boolean
+     */
     private function add_tag_post_relationship() {
         
     }
