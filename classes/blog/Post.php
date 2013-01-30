@@ -266,10 +266,18 @@ class Post {
         
     }
     
+    /**
+     * Updates the relationship between a tag and a post in the database
+     * @return boolean
+     */
     private function update_tag_post_relationship() {
         
     }
     
+    /**
+     * Removes the relationship between a tag and a post form the database
+     * @return boolean
+     */
     private function remove_tag_post_relationship() {
         
     }
