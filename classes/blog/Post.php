@@ -221,6 +221,18 @@ class Post {
         return $results;
         
     }
+    
+    private function add_tag() {
+        
+    }
+    
+    private function update_tag() {
+        
+    }
+    
+    private function remove_tag() {
+        
+    }
 
 }
 
