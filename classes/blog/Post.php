@@ -290,6 +290,10 @@ class Post {
         
     }
     
+    /**
+     * Check if a tag and a post have a relationship
+     * @return boolean
+     */
     private function check_tag_post_relationship() {
         
     }
