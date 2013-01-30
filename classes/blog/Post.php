@@ -222,6 +222,10 @@ class Post {
         
     }
     
+    private function remove_post() {
+        
+    }
+    
     private function add_tag() {
         
     }
