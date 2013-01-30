@@ -253,6 +253,10 @@ class Post {
     private function add_tag_post_relationship() {
         
     }
+    
+    private function check_tag_post_relationship() {
+        
+    }
 
 }
 
