@@ -241,6 +241,10 @@ class Post {
     private function remove_tag() {
         
     }
+    
+    private function update_tag_post_relationship() {
+        
+    }
 
 }
 
