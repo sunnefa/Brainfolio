@@ -26,10 +26,9 @@ try {
 
     require_once CONTROLLERS . 'main.php';
 } catch(mysqli_sql_exception $e) {
-    //todo: implement a prettier fallback for this such as include a file with an error message template
-    die('Unable to connect to database. The message returned was: ' . $e->getMessage());
+    center_die('Database connection error: ' . $e->getMessage(), true);
 } catch(Exception $e) {
-    echo $e->getMessage();
+    center_die($e->getMessage());
 }
 ob_end_flush();
 
