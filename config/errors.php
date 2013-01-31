@@ -13,4 +13,15 @@
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3.0
  * @todo Implement this
  */
+
+function center_die($error_message, $database_error = false) {
+    global $settings;
+    global $sql;
+    @ob_clean();
+    
+    require_once MODULES . 'core/errors.php';
+    
+    exit;
+}
+
 ?>
