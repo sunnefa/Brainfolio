@@ -43,6 +43,12 @@ class Page {
     public $page_slug;
     
     /**
+     * The status of the page (active or inactive)
+     * @var boolean
+     */
+    public $page_status;
+    
+    /**
      * The modules in this page
      * @var array 
      */
@@ -94,6 +100,7 @@ class Page {
                 $this->page_id = $results['page_id'];
                 $this->page_slug = $results['page_slug'];
                 $this->page_title = $results['page_title'];
+                $this->page_status = $results['page_status'];
                 try {
                     $this->page_modules = $this->load_page_modules($results['page_id']);
                 } catch(Exception $e) {
@@ -140,14 +147,14 @@ class Page {
         if(!is_numeric($page_id)) {
             throw new InvalidArgumentException('page_id should be a number');
         } else {
-            $results = $this->db_wrapper->select('core__pages_modules', 'module_id', 'page_id = ' . $page_id, null, 'display_order');
+            $results = $this->db_wrapper->select('core__pages_modules', 'module_id, display_order', 'page_id = ' . $page_id, null, 'display_order');
             
             if($results === false) {
                 throw new Exception('No modules found');
             } else {
                 $modules = array();
                 foreach($results as $module) {
-                    $modules[] = new Module($this->db_wrapper, $module['module_id']);
+                    $modules[$module['display_order']] = new Module($this->db_wrapper, $module['module_id']);
                 }
                 
                 return $modules;
