@@ -8,7 +8,7 @@
  *  get from the database will here be manually inserted (things like page title, navigation etc.)
  * 
  * @filename modules/core/errors.php
- * @package 
+ * @package Core modules
  * @version 0.1
  * @author Sunnefa Lind <sunnefa_lind@hotmail.com>
  * @copyright Sunnefa Lind 2013
@@ -45,13 +45,22 @@ if(isset($database_error)) {
 
         echo $footer_template->return_parsed_template();
     } else {
-        //if the error was something else we can include the header and footer modules but we need to manually
-        //create a $page object with the right variables that header, footer and navigation use
-        $page = (object) array('page_title' => 'An error has occurred', 'page_description' => 'It seems some kind of error has occurred', 'page_slug' => 'errors');
+        //if the error does not have to do with the database we can safely show the error page from the database
+        //as well as the header and footer
         
-        include MODULES . 'core/header.php';
+        if($settings->maintenance_mode == 1) {
+            $page = new Page($sql, 'maintenance');
+        } else {
+            $page = new Page($sql, 'errors');
+        }
+        
+        foreach($page->page_modules as $display_order => $module) {
+            echo $display_order;
+            if($module->module_is_active == 1) {
+                include MODULES . $module->module_path;
+            }
+        }
         echo $error_template->return_parsed_template();
-        include MODULES . 'core/footer.php';
     }
 }
 
