@@ -1,3 +1,5 @@
+SetEnv REWRITE_BASE /WebFolio/public_html/
+
 RewriteEngine On
 RewriteBase /WebFolio/public_html/
 
@@ -8,6 +10,6 @@ RewriteRule ^([a-z0-9A-Z]+)$ $1/ [L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^([a-z0-9A-Z]+)/$ index.php?page=$1
-RewriteRule ^$ index.php?page=home [L]
-RewriteRule ^blog/([a-z0-9A-Z\-/_&\+]+)$ index.php?page=blog&parts=$1
+RewriteRule ^([a-z0-9A-Z]+)/$ index.php
+#RewriteRule ^$ index.php?page=home [L]
+#RewriteRule ^blog/([a-z0-9A-Z\-/_&\+]+)$ index.php?page=blog&parts=$1
