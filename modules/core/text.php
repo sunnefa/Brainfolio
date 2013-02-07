@@ -12,7 +12,7 @@
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3.0
  */
 
-$page_data = array('page_id' => $page->page_id, 'display_order' => $display_order + 1);
+$page_data = array('page_id' => $page->page_id, 'display_order' => $display_order);
 try {
     $text_object = new Text($sql, $page_data);
     echo $text_object->text;
