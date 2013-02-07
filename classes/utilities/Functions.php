@@ -156,6 +156,20 @@ class Functions {
         return $tag . implode($glue, $array) . $closing_tag;
         
     }
+    
+    static function get_query_strings() {
+        $current_url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        
+        $parts = parse_url($current_url);
+        
+        if(isset($_SERVER['REWRITE_BASE'])) {
+            $parts['path'] = str_replace($_SERVER['REWRITE_BASE'], '', $parts['path']);
+        }
+        
+        $queries = explode('/', $parts['path']);
+        array_pop($queries);
+        return $queries;
+    }
 }
 
 ?>
