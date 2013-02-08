@@ -1,4 +1,30 @@
 <!--templates/core/errors.html-->
-<h2>Oops, something is terribly wrong here</h2>
-<p>It appears something did not go quite as planned. Please try again later.</p>
-<p>{ERROR_MESSAGE}</p>
+<html>
+    <head>
+        <title>{TAGLINE} - 404 error</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <base href="{BASE}" />
+        <meta name="description" content="404 error" />
+        <meta name="robots" content="noindex" />
+        <link rel="stylesheet" href="styles/style.css" />
+        <link rel="stylesheet" href="styles/sprites.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="clear separator">
+            <div class="separator-left"></div><div class="fairy_one"></div><div class="separator-right"></div>
+        </div>
+        
+        <div class="section-container">
+            <section class="error-page">
+                <h1>404 error</h1>
+                <p>I'm sorry but what you were looking for could not be found :-(</p>
+                <p>Please go <a href=javascript:history.back();">back</a> and try a different link :-p</p>
+            </section>
+        </div>
+        
+        <div class="clear separator">
+            <div class="separator-left"></div><div class="fairy_three"></div><div class="separator-right"></div>
+        </div>
+    </body>
+</html>
