@@ -32,6 +32,15 @@ h1 {
 	visibility:hidden;	
 }
 
+section.error-page h1 {
+    display:block;
+    visibility: visible;
+    color:#AEAEAE;
+    font-size: 30px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
 h2 {
 	color:#AEAEAE;
 	font-size:1.714em;
@@ -178,6 +187,21 @@ section.left {
 
 section.right {
 	margin-left:50px; /* 50px / 910px */
+}
+
+section.error-page {
+    text-align: center;
+}
+
+section.error-page p {
+    text-align: center;
+}
+
+section.error-page h1 span.error-title {
+    display:inline-block;
+    position:relative;
+    left:38px;
+    top:2px;
 }
 
 p {
