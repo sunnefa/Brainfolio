@@ -15,7 +15,9 @@
 $page_data = array('page_id' => $page->page_id, 'display_order' => $display_order);
 try {
     $text_object = new Text($sql, $page_data);
-    echo $text_object->text;
+    if($text_object->text_is_active == 1) {
+        echo $text_object->text;
+    }
 } catch(Exception $e) {
     echo $e->getMessage();
 }

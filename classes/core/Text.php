@@ -37,6 +37,12 @@ class Text {
     public $text;
     
     /**
+     * Is this text module active?
+     * @var boolean
+     */
+    public $text_is_active;
+    
+    /**
      * The name of the text table
      * @var type 
      */
@@ -86,6 +92,7 @@ class Text {
                     $this->text = html_entity_decode($results['text']);
                     $this->text_id = $results['text_id'];
                     $this->text_name = $results['text_name'];
+                    $this->text_is_active = $results['text_is_active'];
                 }
                 
             }
