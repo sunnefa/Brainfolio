@@ -157,6 +157,10 @@ class Functions {
         
     }
     
+    /**
+     * Returns an array made by slitting the current url at the slashes
+     * @return array
+     */
     static function get_query_strings() {
         $current_url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         
