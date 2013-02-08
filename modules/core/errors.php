@@ -15,53 +15,20 @@
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3.0
  */
 
-//the error message template is going to be the same regardless of what type of error occurred
-$error_tokens = array(
-    'ERROR_MESSAGE' => (isset($error_message)) ? $error_message : 'Unknown error occurred.'
+$template_file = TEMPLATES . 'core/errors.html';
+
+$tokens = array(
+    'TAGLINE' => ($database_error == false) ? $settings->tagline : '',
+    'BASE' => Functions::get_base_url()
 );
+try {
+    $template = new Template($template_file, $tokens);
 
-$error_template = new Template(TEMPLATES . 'core/errors.html', $error_tokens);
-
-//if the error is with the database or database connection we don't want to include the header and footer modules
-//because they require the database to show certain details such as page title and navigation
-if(isset($database_error)) {
-    if($database_error === true) {
-        $error_header_tokens = array(
-            'TAGLINE' => 'Error',
-            'PAGE_TITLE' => 'An error has occurred',
-            'BASE' => Functions::get_base_url(),
-            'NAVIGATION' => ''
-        );
-
-        $error_header_template = new Template(TEMPLATES . 'core/header.html', $error_header_tokens);
-
-        echo $error_header_template->return_parsed_template();
-
-        echo $error_template->return_parsed_template();
-
-        $footer_tokens = array('NAVIGATION' => '');
-
-        $footer_template = new Template(TEMPLATES . 'core/footer.html', $footer_tokens);
-
-        echo $footer_template->return_parsed_template();
-    } else {
-        //if the error does not have to do with the database we can safely show the error page from the database
-        //as well as the header and footer
-        
-        if($settings->maintenance_mode == 1) {
-            $page = new Page($sql, 'maintenance');
-        } else {
-            $page = new Page($sql, 'errors');
-        }
-        
-        foreach($page->page_modules as $display_order => $module) {
-            echo $display_order;
-            if($module->module_is_active == 1) {
-                include MODULES . $module->module_path;
-            }
-        }
-        echo $error_template->return_parsed_template();
-    }
+    echo $template->return_parsed_template();
+} catch(Exception $e) {
+    
 }
+
+//todo: log the error here
 
 ?>
