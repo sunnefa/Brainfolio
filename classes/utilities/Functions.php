@@ -174,6 +174,39 @@ class Functions {
         array_pop($queries);
         return $queries;
     }
+    
+    /**
+     * Checks if there is php code in the given string that needs to be eval'd
+     * evals it and replaces the instances of php code with the output of eval
+     * @todo Implement safety measures so that only certain functions can be used and other's will just
+     * be printed as php code
+     * @global type $settings
+     * @param type $string
+     * @return string
+     */
+    static function center_eval($string) {
+        global $settings;
+        
+        if(preg_match_all('/<?php(.*)\?>/',$string, $matches)) {
+            $executed = array();
+            foreach($matches[1] as $code) {
+                ob_start();
+                eval($code);
+                $executed[$code] = ob_get_clean();
+            }
+            
+            $returning = '';
+            foreach($executed as $code => $parsed) {
+                $returning .= str_replace('<?php' . $code . '?>', $parsed, $string);
+            }
+            return $returning; 
+        } else {
+            return $string;
+        }
+        
+        
+        
+    }
 }
 
 ?>
