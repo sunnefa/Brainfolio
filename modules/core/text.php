@@ -16,10 +16,14 @@ $page_data = array('page_id' => $page->page_id, 'display_order' => $display_orde
 try {
     $text_object = new Text($sql, $page_data);
     if($text_object->text_is_active == 1) {
-        echo $text_object->text;
+        if($settings->execute_php == 1) {
+            echo Functions::center_eval($text_object->text);
+        } else {
+           echo $text_object->text; 
+        }
+        
     }
 } catch(Exception $e) {
     echo $e->getMessage();
 }
-
 ?>
