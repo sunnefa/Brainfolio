@@ -281,3 +281,9 @@ b {
     text-align: center;
     margin:30px;
 }
+
+img.profile-picture {
+    float:left;
+    margin:5px 25px 25px 0;
+    border:1px solid #aeaeae;
+}
