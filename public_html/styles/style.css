@@ -28,8 +28,8 @@ img {
 }
 	
 h1 {
-	display:none;
-	visibility:hidden;	
+	/*display:none;
+	visibility:hidden;*/	
 }
 
 section.error-page h1 {
@@ -41,13 +41,19 @@ section.error-page h1 {
     text-transform: uppercase;
 }
 
-h2 {
+h2, h1 {
 	color:#AEAEAE;
 	font-size:1.714em;
 	text-transform:uppercase;
 	font-weight:300;
 	padding:0;
 	margin:0;
+}
+
+h1 {
+    font-size: 2em;
+    margin:0 auto;
+    text-align:center;
 }
 
 h2:after {
@@ -122,6 +128,10 @@ header nav ul li a:after {
 	height: 24px;
 	display:inline-block;
 	margin-left:20px;
+}
+
+footer p {
+    text-align: center;
 }
 
 footer nav ul li a:after {
@@ -218,12 +228,17 @@ p.title {
 	margin:0 0 10px 0;	
 }
 
-a.more {
+p.more_text {
+    position:relative;
+    top:5px;
+}
+
+p.more {
 	text-align:right;
 	display:block;
 }
 
-a.more:after {
+p.more:after {
 	content:" ";
 	background: url(../images/sprites.png) no-repeat;
 	display:inline-block;
@@ -235,7 +250,7 @@ a.more:after {
 	margin-left:10px;
 }
 
-a.more:hover:after {
+p.more:hover:after {
 	background-position: -697px -66px ;
 }
 

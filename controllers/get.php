@@ -17,7 +17,7 @@ $queries = Functions::get_query_strings();
 if($settings->maintenance_mode == 1) {
     $page_slug = 'maintenance';
 } elseif(empty($queries)) {
-    $page_slug = 'home';
+    $page_slug = 'portfolio';
 } else {
     $page_slug = $queries[0];
 }

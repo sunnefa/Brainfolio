@@ -20,7 +20,7 @@ function center_die($error_message, $database_error = false) {
     @ob_clean();
     
     require_once MODULES . 'core/errors.php';
-    
+    //echo $error_message;
     exit;
 }
 
